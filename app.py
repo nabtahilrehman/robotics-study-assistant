@@ -5,13 +5,14 @@ st.title("🤖 Robotics Study Assistant")
 
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
-model = genai.GenerativeModel("gemini-1.5-flash")
+try:
+    model = genai.GenerativeModel("gemini-pro")
 
-question = st.text_input("Ask a Robotics or AI question")
+    question = st.text_input("Ask a question")
 
-if question:
-    response = model.generate_content(
-        f"You are a robotics tutor. Answer this question simply: {question}"
-    )
+    if question:
+        response = model.generate_content(question)
+        st.write(response.text)
 
-    st.write(response.text)
+except Exception as e:
+    st.error(str(e))
