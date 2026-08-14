@@ -5,7 +5,7 @@ st.title("🤖 Robotics Study Assistant")
 
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
-model = genai.GenerativeModel("gemini-1.5-flash-001")
+model = genai.GenerativeModel("gemini-1.5-flash-latest")
 
 question = st.text_input("Ask a Robotics or AI question")
 
