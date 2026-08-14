@@ -22,6 +22,7 @@ Your goal is to help university students understand complex concepts easily.
 try:
     api_key = st.secrets["GEMINI_API_KEY"]
     genai.configure(api_key=api_key)
+    st.write("Available models:", [m.name for m in genai.list_models()])
 except KeyError:
     st.error("⚠️ API Key not found! Please add GEMINI_API_KEY to your .streamlit/secrets.toml file.")
     st.stop()
