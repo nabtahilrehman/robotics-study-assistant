@@ -1,50 +1,13 @@
 import streamlit as st
 import google.generativeai as genai
 
-st.set_page_config(
-    page_title="Robotics Study Assistant",
-    page_icon="🤖",
-)
+try:
+    genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
-st.title("🤖 Robotics Study Assistant")
+    st.success("API Key Loaded")
 
-st.markdown(
-    """
-Ask me about:
+    for m in genai.list_models():
+        st.write(m.name)
 
-- Robotics
-- AI
-- Machine Learning
-- Computer Vision
-- ROS2
-- Reinforcement Learning
-"""
-)
-
-genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-
-model = genai.GenerativeModel("gemini-1.5-flash")
-
-question = st.text_input(
-    "Ask a Robotics or AI Question"
-)
-
-if question:
-
-    prompt = f"""
-    You are an expert Robotics and AI tutor.
-
-    Explain concepts clearly and simply.
-
-    Question:
-    {question}
-    """
-
-    try:
-        response = model.generate_content(prompt)
-
-        st.markdown("### Answer")
-        st.write(response.text)
-
-    except Exception as e:
-        st.error(f"Error: {e}")
+except Exception as e:
+    st.error(e)
